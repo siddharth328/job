@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerConnect | Job Consultancy Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn.secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn.secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            color: var(--dark-color);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--dark-color);
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav ul li a.active,
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a.active:after,
+        nav ul li a:hover:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        #home {
+            padding-top: 120px;
+            background-color: #f0f7ff;
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--gray-color);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Video Section */
+        #video {
+            background-color: white;
+            text-align: center;
+        }
+
+        #video h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            /* overflow: hidden; */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            /* object-fit: fill; */
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-container image {
+            width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+        }
+
+        /* Job Search Section */
+        #job-search {
+            background-color: #f0f7ff;
+            text-align: center;
+        }
+
+        #job-search h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-box input,
+        .search-box select {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 30px;
+        }
+
+        /* Services Section */
+        #services {
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+        }
+
+        .section-header p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* Process Section */
+        #process {
+            background-color: #f0f7ff;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background-color: white;
+            text-align: center;
+        }
+
+        #testimonials h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .testimonial-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .client-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .client-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rating {
+            color: var(--warning-color);
+            margin-top: 15px;
+        }
+
+        /* Stats Section */
+        #stats {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        #contact {
+            background-color: #f0f7ff;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .info-card i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        /* Map Section */
+        #map {
+            padding: 0;
+        }
+
+        #map iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* CTA Section */
+        #cta {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        #cta h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero .container {
+                flex-direction: column;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .process-steps {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Career<span>Connect</span></h1>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <!-- <li><a href="#testimonials">Testimonials</a></li> -->
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Dream Job Awaits</h1>
+                <p>We connect top talent with leading companies worldwide</p>       
+                <a href="main.html" class="btn secondary">Upload Resume</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Happy professional">
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section id="job-search" class="job-search">
+        <div class="container2">
+            <h2>Find Your Perfect Job</h2>
+            <!-- <div class="search-box">
+                <input type="text" placeholder="Job title, keywords">
+                <input type="text" placeholder="Location">
+                <select>
+                    <option value="">Job Type</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="remote">Remote</option>
+                    <option value="contract">Contract</option>
+                </select>
+                <button class="btn">Search</button>
+            </div>
+        </div> -->
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive career solutions tailored to your needs</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Job Placement</h3>
+                    <p>We match your skills and preferences with the perfect job opportunities from our extensive network of employers.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Resume Optimization</h3>
+                    <p>Our experts will transform your resume to get past ATS systems and impress hiring managers.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Interview Coaching</h3>
+                    <p>Master the art of interviewing with personalized coaching and mock interview sessions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Career Counseling</h3>
+                    <p>Get personalized guidance to navigate your career path and make strategic decisions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Skill Development</h3>
+                    <p>Access our curated training programs to enhance your skills and marketability.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Opportunities</h3>
+                    <p>Explore international job opportunities with our global partner network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="process">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Process</h2>
+                <p>Simple, transparent steps to your dream job</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Initial Consultation</h3>
+                    <p>We understand your career goals and aspirations</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Profile Assessment</h3>
+                    <p>Comprehensive evaluation of your skills and experience</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Strategic Planning</h3>
+                    <p>Customized job search strategy development</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Implementation</h3>
+                    <p>Active job search with our expert guidance</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Success</h3>
+                    <p>Landing your dream job offer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="stats" class="stats">
+        <div class="container">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <h3>10,000+</h3>
+                    <p>Successful Placements</p>
+                </div>
+                <div class="stat-card">
+                    <h3>500+</h3>
+                    <p>Partner Companies</p>
+                </div>
+                <div class="stat-card">
+                    <h3>95%</h3>
+                    <p>Satisfaction Rate</p>
+                </div>
+                <div class="stat-card">
+                    <h3>30+</h3>
+                    <p>Industries Served</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>CareerConnect</h3>
+                    <p>Connecting talent with opportunity since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">Process</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#services">Job Placement</a></li>
+                        <li><a href="#services">Resume Review</a></li>
+                        <li><a href="#services">Interview Coaching</a></li>
+                        <li><a href="#services">Career Counseling</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i></p>
+                    <p><i class="fas fa-phone"></i></p>
+                    <p><i class="fas fa-envelope"></i></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 career contact. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('show');
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('nav-menu').classList.remove('show');
+                
+                // Update active link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            const resume = document.getElementById('resume').files[0];
+            
+            // Here you would typically send this data to a server
+            // For demonstration, we'll just show an alert
+            alert(`Thank you, ${name}! Your message has been received. We'll contact you soon about ${service}.`);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Change active navigation link on scroll
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Job Search Functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const jobTitle = document.querySelector('.search-box input[type="text"]').value;
+            const location = document.querySelector('.search-box input[type="text"]:nth-child(2)').value;
+            const jobType = document.querySelector('.search-box select').value;
+            
+            if (!jobTitle && !location) {
+                alert('Please enter at least a job title or location');
+                return;
+            }
+            
+            // In a real application, this would search a jobs database
+            alert(`Searching for ${jobType ? jobType + ' ' : ''}jobs${jobTitle ? ' with title: ' + jobTitle : ''}${location ? ' in ' + location : ''}`);
+        });
+    </script>
+</body>
+</html>

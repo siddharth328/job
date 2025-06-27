@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4895ef;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .form-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 600px;
+      margin: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .form-header h4 {
+      color: var(--dark-color);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-header p {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .form-control, .form-select {
+      border-radius: 8px;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .btn-custom {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      font-weight: 600;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    
+    .btn-custom:hover {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(63, 55, 201, 0.3);
+    }
+    
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    .form-check-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .file-upload-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .file-upload-label {
+      display: block;
+      padding: 12px;
+      border: 1px dashed #ced4da;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background-color: #f8f9fa;
+    }
+    
+    .file-upload-label:hover {
+      border-color: var(--primary-color);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .file-upload-label i {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .file-upload-label span {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    #file-name {
+      font-size: 0.8rem;
+      color: var(--primary-color);
+      margin-top: 0.5rem;
+      display: block;
+      text-align: center;
+    }
+    
+    @media (max-width: 576px) {
+      .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+      
+      .form-header h4 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h4>Contact Us</h4>
+      <p>Fill out the form below and we'll get back to you soon</p>
+    </div>
+    <form id="submit-to-google-sheet">
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input class="form-control" type="text" name="name" id="name" placeholder="enter your name " required />
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input class="form-control" type="email" name="email" id="email" placeholder="example@gmail.com" required />
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="contact_number" class="form-label">Phone Number</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+          <input class="form-control" type="text" name="contact_number" id="contact_number" placeholder="+91 enter mobile number" required />
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="gender" class="form-label">Gender</label>
+        <select class="form-select" name="gender" id="gender" required>
+          <option disabled selected hidden>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          <option value="prefer-not-to-say">Prefer not to say</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="message" class="form-label">Your Message</label>
+        <textarea class="form-control" name="message" id="message" rows="4" placeholder="Type your message here..." required></textarea>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Upload File</label>
+        <div class="file-upload-wrapper">
+          <label for="media" class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Click to upload or drag and drop</span>
+            <span>JPG, PNG, PDF, DOC, DOCX (Max 5MB)</span>
+          </label>
+          <input class="form-control d-none" type="file" name="media" id="media" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"/>
+          <div id="file-name"></div>
+        </div>
+      </div>
+      
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="age"/>
+        <label class="form-check-label" for="age">I confirm that I am over 18 years old</label>
+      </div>
+      
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="ex" required />
+        <label class="form-check-label" for="ex">I agree to the <a href="#" style="color: var(--primary-color);">terms and conditions</a> and <a href="#" style="color: var(--primary-color);">privacy policy</a></label>
+      </div>
+      
+      <button type="submit" class="btn btn-custom w-100">
+        <span class="submit-text">Submit Form</span>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx-ONsy0C8-9FtWbodi74bMWFbTo1lI53elqF5sB6ehXPValIk2bpdGVsUQodLUXGup4g/exec";
+    const form = document.getElementById("submit-to-google-sheet");
+    const fileInput = document.getElementById("media");
+    const fileNameDisplay = document.getElementById("file-name");
+    const fileUploadLabel = document.querySelector(".file-upload-label");
+
+    // File upload display
+    fileInput.addEventListener('change', function(e) {
+      if (this.files.length > 0) {
+        const fileName = this.files[0].name;
+        fileNameDisplay.textContent = `Selected file: ${fileName}`;
+        fileUploadLabel.style.borderColor = '#4361ee';
+        fileUploadLabel.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+      } else {
+        fileNameDisplay.textContent = '';
+        fileUploadLabel.style.borderColor = '#ced4da';
+        fileUploadLabel.style.backgroundColor = '#f8f9fa';
+      }
+    });
+
+    // Drag and drop functionality
+    fileUploadLabel.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUploadLabel.style.borderColor = '#4361ee';
+      fileUploadLabel.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+    });
+
+    fileUploadLabel.addEventListener('dragleave', () => {
+      fileUploadLabel.style.borderColor = fileInput.files.length > 0 ? '#4361ee' : '#ced4da';
+      fileUploadLabel.style.backgroundColor = fileInput.files.length > 0 ? 'rgba(67, 97, 238, 0.05)' : '#f8f9fa';
+    });
+
+    fileUploadLabel.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileInput.files = e.dataTransfer.files;
+      const event = new Event('change');
+      fileInput.dispatchEvent(event);
+    });
+
+    // Form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button[type='submit']");
+      const submitText = btn.querySelector(".submit-text");
+      const spinner = btn.querySelector(".spinner-border");
+      
+      submitText.classList.add("d-none");
+      spinner.classList.remove("d-none");
+      btn.disabled = true;
+      
+      const formData = new FormData(form);
+      formData.append("age", document.getElementById("age").checked ? "Yes" : "No");
+      formData.append("ex", document.getElementById("ex").checked ? "Yes" : "No");
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+          Swal.fire({
+            icon: "error",
+            title: "File too large",
+            text: "Please upload a file smaller than 5MB",
+            confirmButtonColor: "#4361ee"
+          });
+          resetButton();
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = async function() {
+          formData.append("media", reader.result.split(",")[1]);
+          formData.append("mediaType", file.type);
+          formData.append("mediaExt", file.name.split(".").pop());
+          await submitForm(formData);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await submitForm(formData);
+      }
+    });
+
+    async function submitForm(formData) {
+      try {
+        const response = await fetch(scriptURL, { method: "POST", body: formData });
+        const result = await response.json();
+        if (result.result === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Thank you!",
+            text: "Your form has been submitted successfully.",
+            confirmButtonColor: "#4361ee"
+          });
+          form.reset();
+          fileNameDisplay.textContent = '';
+          fileUploadLabel.style.borderColor = '#ced4da';
+          fileUploadLabel.style.backgroundColor = '#f8f9fa';
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: result.error || "Something went wrong. Please try again.",
+            confirmButtonColor: "#4361ee"
+          });
+        }
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error",
+          text: "Please check your connection and try again.",
+          confirmButtonColor: "#4361ee"
+        });
+      } finally {
+        resetButton();
+      }
+    }
+
+    function resetButton() {
+      const btn = form.querySelector("button[type='submit']");
+      const submitText = btn.querySelector(".submit-text");
+      const spinner = btn.querySelector(".spinner-border");
+      
+      submitText.classList.remove("d-none");
+      spinner.classList.add("d-none");
+      btn.disabled = false;
+    }
+  </script>
+</body>
+</html>
+
+
+
+<!-- Updated Design and Validation HTML -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Google Sheet Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 550px;
+    }
+    .form-control, .form-select {
+      border-radius: 12px;
+    }
+    .btn-custom {
+      background-color: #5A67D8;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h4 class="text-center mb-4">Google Sheet Submission Form</h4>
+    <form id="submit-to-google-sheet">
+      <div class="mb-3">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="name" id="name" required />
+      </div>
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" name="email" id="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="contact_number">Contact Number</label>
+        <input class="form-control" type="text" name="contact_number" id="contact_number" required />
+      </div>
+      <div class="mb-3">
+        <label for="gender">Gender</label>
+        <select class="form-select" name="gender" id="gender" required>
+          <option disabled selected hidden>Choose...</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="message">Message</label>
+        <textarea class="form-control" name="message" id="message" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="media">Upload File (JPG, PNG, PDF, DOC, DOCX)</label>
+        <input class="form-control" type="file" name="media" id="media" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"/>
+      </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" id="age"/>
+        <label class="form-check-label" for="age">I am over 18 years old</label>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="ex" required />
+        <label class="form-check-label" for="ex">I agree with the terms and policies</label>
+      </div>
+      <button type="submit" class="btn btn-custom w-100">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = "";
+    const form = document.getElementById("submit-to-google-sheet");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      formData.append("age", document.getElementById("age").checked ? "Yes" : "No");
+      formData.append("ex", document.getElementById("ex").checked ? "Yes" : "No");
+
+      const fileInput = document.getElementById("media");
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+          Swal.fire("Error", "File must be under 5MB", "error");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = async function () {
+          formData.append("media", reader.result.split(",")[1]);
+          formData.append("mediaType", file.type);
+          formData.append("mediaExt", file.name.split(".").pop());
+          await submitForm(formData);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await submitForm(formData);
+      }
+    });
+
+    async function submitForm(formData) {
+      const btn = form.querySelector("button[type='submit']");
+      btn.disabled = true;
+      btn.innerText = "Submitting...";
+      try {
+        const response = await fetch(scriptURL, { method: "POST", body: formData });
+        const result = await response.json();
+        if (result.result === "success") {
+          Swal.fire("Success!", "Form submitted successfully.", "success");
+          form.reset();
+        } else {
+          Swal.fire("Error", result.error || "Something went wrong", "error");
+        }
+      } catch (err) {
+        Swal.fire("Error", "Network error or invalid URL", "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Submit";
+      }
+    }
+  </script>
+</body>
+</html> -->
+
+
+<!-- name	email	contact_number	gender	message	media	age	ex	 timestamp -->
+
+
+<!-- 
+var sheetName = 'Sheet1';
+var uploadFolderID = '1xLwxX_TiOMi4rqmdVarUgBYzsbjxH2yB';  // Replace with your Drive folder ID
+var scriptProp = PropertiesService.getScriptProperties();
+
+function initialSetup() {
+  var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  scriptProp.setProperty('key', activeSpreadsheet.getId());
+}
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    var doc = SpreadsheetApp.openById(scriptProp.getProperty("key"));
+    var sheet = doc.getSheetByName(sheetName);
+
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var nextRow = sheet.getLastRow() + 1;
+
+    var newRow = headers.map(function(header) {
+      return header === "timestamp" ? new Date() : (e.parameter[header] || "");
+    });
+
+    // Handle media file upload
+    if (e.parameter.media) {
+      const mediaBlob = Utilities.newBlob(
+        Utilities.base64Decode(e.parameter.media),
+        MimeType.JPEG,  // You could add MIME detection if needed
+        "uploaded_media_" + new Date().getTime() + ".jpg"
+      );
+
+      const folder = DriveApp.getFolderById(uploadFolderID);
+      const file = folder.createFile(mediaBlob);
+      const fileUrl = file.getUrl();
+
+      const mediaColumnIndex = headers.indexOf("media");
+      if (mediaColumnIndex > -1) {
+        newRow[mediaColumnIndex] = fileUrl;
+      } else {
+        newRow.push(fileUrl);
+      }
+    } else {
+      const mediaColumnIndex = headers.indexOf("media");
+      if (mediaColumnIndex > -1) {
+        newRow[mediaColumnIndex] = "";
+      } else {
+        newRow.push("");
+      }
+    }
+
+    // Save the data row
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: "success", row: nextRow }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: "error", error: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+} -->
